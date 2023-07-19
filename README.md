@@ -1,5 +1,9 @@
 # weather-online
 
+This application, when entering a city, shows its current weather and additional information related to it. The data comes via an api request from openweathermap.org
+---
+
+
 This template should help get you started developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
@@ -27,3 +31,4 @@ npm run dev
 ```sh
 npm run build
 ```
+<a href="https://weather-online.shpstudio.ru/">DEMO</a>
