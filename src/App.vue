@@ -7,22 +7,35 @@
   import Coords from './components/Coords.vue';
   import Humidity from './components/Humidity.vue';
 
-  const city = ref('Paris');
+  const city = ref('');
   const weatherInfo = ref(null);
   const isError = computed(() => weatherInfo.value?.cod !== 200);
+
+
+  const saveLastCityToLocalStorage = (city) => {
+    localStorage.setItem('lastCity', city);
+  };
+
   const getWeather = async () => {
     await fetch(`${BASE_URL}?q=${city.value}&units=metric&appid=${API_KEY}`)
       .then((response) => response.json())
       .then((data) => {
         weatherInfo.value = data;
-      })
-  }
+        if (!isError.value) {
+          saveLastCityToLocalStorage(city.value);
+        }
+      });
+  };
 
   onMounted(() => {
-    getWeather();
-  })
+    // При загрузке страницы попробуем получить последний сохраненный город и установить его в поле city.
+    const lastCity = localStorage.getItem('lastCity');
+    if (lastCity) {
+      city.value = lastCity;
+    }
 
-  
+    getWeather();
+  });
 </script>
 
 <template>
